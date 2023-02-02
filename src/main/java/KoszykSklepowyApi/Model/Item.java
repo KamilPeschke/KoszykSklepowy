@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Setter
 @Getter
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -22,5 +23,6 @@ public class Item {
     @NotNull(message = "Product name is required.")
     private String name;
     private double price;
-
 }
+
+

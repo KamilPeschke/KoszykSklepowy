@@ -2,19 +2,23 @@ package KoszykSklepowyApi.Model;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
+
+@Setter
+@Getter
+@AllArgsConstructor
 @Entity
+@Builder
+@NoArgsConstructor
 public class Basket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long BasketId;
+    private Long basketId;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -25,7 +29,9 @@ public class Basket {
     private String status;
     private double sum;
 
-    public Basket() {
-    }
+
+
 }
+
+
 

@@ -16,7 +16,7 @@ public class DatabaseTest {
   private ItemRepository itemRepository;
 
     @BeforeEach
-    private void cleanUp(){
+    public void cleanUp(){
         itemRepository.deleteAll();
     }
 
