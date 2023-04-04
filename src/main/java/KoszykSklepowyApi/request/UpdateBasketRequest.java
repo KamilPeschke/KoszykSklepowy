@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UpdateBasketRequest {
 
+
     private double sum;
     private List<Item> itemList = new ArrayList<>();
     private String status;

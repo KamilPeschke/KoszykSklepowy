@@ -3,7 +3,9 @@ package KoszykSklepowyApi.response;
 import KoszykSklepowyApi.Model.Basket;
 import KoszykSklepowyApi.Model.Item;
 import lombok.*;
+import org.springframework.http.HttpStatusCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,7 +16,7 @@ import java.util.List;
 public class BasketResponse {
 
     private Long basketId;
-    private List<Item> itemList;
+    private List<Item> itemList = new ArrayList<>();
     private double sum;
     private String status;
 
@@ -23,4 +25,5 @@ public class BasketResponse {
         this.itemList = basket.getItemList();
         this.sum = basket.getSum();
     }
+
 }
