@@ -1,11 +1,9 @@
-package KoszykSklepowyApi.Model;
+package KoszykSklepowyApi.model;
 
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.util.List;
 
 @Setter
 @Getter

@@ -1,24 +1,28 @@
 package KoszykSklepowyApi.service;
 
 
-import KoszykSklepowyApi.Model.Item;
-import KoszykSklepowyApi.Repository.ItemRepository;
+import KoszykSklepowyApi.Exception.NotFoundException;
+import KoszykSklepowyApi.model.Item;
+import KoszykSklepowyApi.model.ProductMapper;
+import KoszykSklepowyApi.repository.ItemRepository;
 import KoszykSklepowyApi.request.CreateItemRequest;
 import KoszykSklepowyApi.response.ItemResponse;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.http.HttpStatus;
 
 @Service
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final ProductMapper productMapper;
 
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, ProductMapper productMapper) {
         this.itemRepository = itemRepository;
+        this.productMapper = productMapper;
     }
 
     public ItemResponse addItem(final CreateItemRequest createItemRequest){
@@ -30,9 +34,23 @@ public class ItemService {
     }
 
     public List<ItemResponse>getAllItems(){
-        List<ItemResponse> itemList = new ArrayList<>();
-        itemRepository.findAll().forEach(item -> itemList.add(new ItemResponse(item)));
-        return itemList;
+
+        List<Item> items = itemRepository.findAll();
+        return items.stream().map(productMapper::itemResponse).toList();
         }
+
+    public ItemResponse getItemById(Long itemId){
+        return itemRepository.findById(itemId).map(productMapper::itemResponse)
+                .orElseThrow(() -> new NotFoundException(MessageFormat
+                        .format("Product with that ID: {0} not found.", itemId)));
     }
+
+    public Boolean deleteItem(Long itemId){
+        return itemRepository.findById(itemId).map(item -> {
+            itemRepository.delete(item);
+            return true;
+        }).orElseThrow(() -> new NotFoundException(MessageFormat.format("Product with that ID {0} not found." , itemId)));
+    }
+
+}
 

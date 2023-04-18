@@ -1,6 +1,5 @@
-package KoszykSklepowyApi.Controller;
-import KoszykSklepowyApi.Model.Item;
-import KoszykSklepowyApi.Repository.ItemRepository;
+package KoszykSklepowyApi.controller;
+import KoszykSklepowyApi.model.Item;
 import KoszykSklepowyApi.request.CreateBasketRequest;
 import KoszykSklepowyApi.request.CreateItemRequest;
 import KoszykSklepowyApi.request.UpdateBasketRequest;
@@ -19,7 +18,7 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/basket")
 public class BasketController {
 
     private final BasketService basketService;
@@ -32,7 +31,6 @@ public class BasketController {
         this.itemService = itemService;
     }
 
-
     @GetMapping("/all")
     public List<Item> getAll(){
         return itemList;
@@ -44,25 +42,25 @@ public class BasketController {
         return first.get();
 
     }
-    @PostMapping("/item")
-    public ResponseEntity<ItemResponse> addItem(@Valid @RequestBody CreateItemRequest createItemRequest){
-        return new ResponseEntity<>(itemService.addItem(createItemRequest), HttpStatus.CREATED);
-    }
 
-    @PutMapping("/basket/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BasketResponse> updateBasket(@RequestBody UpdateBasketRequest updateBasketRequest, @PathVariable Long id){
         return basketService.updateBasket(updateBasketRequest, id).map(m -> new ResponseEntity<>(new BasketResponse(m), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/basket")
-    public ResponseEntity<BasketResponse> addBasket(@Valid @RequestBody CreateBasketRequest createBasketRequest){
-        return new ResponseEntity<>(basketService.createBasket(createBasketRequest), HttpStatus.CREATED);
+    @PostMapping()
+    public ResponseEntity<BasketResponse> addBasket(){
+        return new ResponseEntity<>(basketService.createNewBasket(), HttpStatus.CREATED);
     }
 
-    @GetMapping("/basket")
+    @GetMapping("/basket/getAllBasket")
     public ResponseEntity<List<BasketResponse>> getAllBaskets(){
         return new ResponseEntity<>(basketService.getAllBaskets(), HttpStatus.OK);
     }
 
+    @GetMapping("/{basketId}")
+    public ResponseEntity<BasketResponse> getSingleBasket(@PathVariable Long basketId){
+        return new ResponseEntity<>(basketService.getSingleBasket(basketId), HttpStatus.OK);
+    }
 }

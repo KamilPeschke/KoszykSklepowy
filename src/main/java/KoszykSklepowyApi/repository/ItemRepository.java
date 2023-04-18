@@ -1,6 +1,6 @@
-package KoszykSklepowyApi.Repository;
+package KoszykSklepowyApi.repository;
 
-import KoszykSklepowyApi.Model.Item;
+import KoszykSklepowyApi.model.Item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

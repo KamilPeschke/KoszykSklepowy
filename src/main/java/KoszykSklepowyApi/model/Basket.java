@@ -1,8 +1,9 @@
-package KoszykSklepowyApi.Model;
+package KoszykSklepowyApi.model;
 
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.aspectj.weaver.ast.Or;
 
 import java.util.List;
 
@@ -26,10 +27,13 @@ public class Basket {
     )
     @JoinColumn(name = "basket_id")
     private List<Item> itemList;
+
     private String status;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
     private double sum;
-
-
 
 }
 

@@ -1,9 +1,9 @@
 package KoszykSklepowyApi.response;
 
-import KoszykSklepowyApi.Model.Basket;
-import KoszykSklepowyApi.Model.Item;
+import KoszykSklepowyApi.model.Basket;
+import KoszykSklepowyApi.model.Item;
+import KoszykSklepowyApi.model.OrderStatus;
 import lombok.*;
-import org.springframework.http.HttpStatusCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +16,18 @@ import java.util.List;
 public class BasketResponse {
 
     private Long basketId;
-    private List<Item> itemList = new ArrayList<>();
+
+    @With
     private double sum;
+
     private String status;
+
+    private OrderStatus orderStatus;
 
     public BasketResponse(Basket basket) {
         this.basketId = basket.getBasketId();
-        this.itemList = basket.getItemList();
         this.sum = basket.getSum();
+        this.orderStatus =basket.getOrderStatus();
     }
 
 }

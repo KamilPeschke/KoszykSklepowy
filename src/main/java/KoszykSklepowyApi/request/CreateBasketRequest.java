@@ -1,6 +1,6 @@
 package KoszykSklepowyApi.request;
 
-import KoszykSklepowyApi.Model.Item;
+import KoszykSklepowyApi.model.Item;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

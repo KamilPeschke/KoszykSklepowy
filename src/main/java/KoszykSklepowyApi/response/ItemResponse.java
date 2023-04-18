@@ -1,15 +1,15 @@
 package KoszykSklepowyApi.response;
 
 
-import KoszykSklepowyApi.Model.Item;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import KoszykSklepowyApi.model.Item;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 public class ItemResponse {
 
     private Long itemId;
